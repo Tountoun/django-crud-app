@@ -1,5 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="mt-5">Register</h1>
+    <div class="col-md-6 offset-md-3">
+    {% if not user.is_authenticated %}
+        <h1 class="mt-5 mb-5">Registration</h1>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% if form.errors %}
+             <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                 {% for field in form %}
+                    {% if field.errors %}
+                        {{ field.errors }}
+                    {% endif %}
+                 {% endfor %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+            {{ form.as_p }}
+            <br>
+            <button type="submit" class="btn btn-success"
+                    style="--bs-btn-padding-y: 10px; --bs-btn-padding-x: 50px; --bs-btn-font-size: 20px;">Register</button>
+        </form>
+    </div>
+    {% endif %}
 {% endblock %}
