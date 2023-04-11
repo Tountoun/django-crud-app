@@ -1,6 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Employee
+from django.core import validators
 
 
 class RegistrationForm(UserCreationForm):
@@ -40,3 +42,37 @@ class RegistrationForm(UserCreationForm):
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted">Enter the same password as before, ' \
                                              'for verification.</span>'
+
+
+class EmployeeForm(forms.ModelForm):
+    email = forms.EmailField(required=True, widget=forms.EmailInput(
+        attrs={
+            'class': 'form-control fs-5',
+            'placeholder': 'Email'
+        }
+    ), validators=[validators.EmailValidator(message="Invalid email")])
+    class Meta:
+        model = Employee
+        fields = "__all__"
+
+        widgets = {
+            "first_name": forms.TextInput(attrs={
+                'class': 'form-control fs-5',
+                'placeholder': 'First Name'
+            }),
+            "last_name": forms.TextInput(attrs={
+                'class': 'form-control fs-5',
+                'placeholder': 'Last Name'
+            }),
+            "title": forms.TextInput(attrs={
+                'class': 'form-control fs-5',
+                'placeholder': 'Title'
+            }),
+            "domain": forms.Select(attrs={
+                'class': 'form-control fs-5',
+            }),
+            "salary": forms.NumberInput(attrs={
+                'class': 'form-control fs-5',
+                'placeholder': 'Ex: XXXXXXX.XXX'
+            }),
+        }
