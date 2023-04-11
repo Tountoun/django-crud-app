@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import RegistrationForm
+from .forms import RegistrationForm, EmployeeForm
+from .models import Employee
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    context = {}
+    employees = Employee.objects.all()
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -16,6 +18,9 @@ def home(request):
             return redirect('home')
         messages.error(request, 'Bad credentials')
         return redirect('home')
+    context = {
+        'employees': employees
+    }
     return render(request, 'home.html', context)
 
 
@@ -42,3 +47,18 @@ def register_user(request):
         'form': form
     }
     return render(request, 'register.html', context)
+
+
+@login_required(login_url="home")
+def add_employee(request):
+    form = EmployeeForm()
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        return render(request, 'employee.html', {'form': form})
+    context = {
+        'form': form
+    }
+    return render(request, 'employee.html', context)
