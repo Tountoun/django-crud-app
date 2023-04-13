@@ -57,8 +57,38 @@ def add_employee(request):
         if form.is_valid():
             form.save()
             return redirect('home')
-        return render(request, 'employee.html', {'form': form})
+        return render(request, 'add_emp.html', {'form': form})
     context = {
         'form': form
     }
-    return render(request, 'employee.html', context)
+    return render(request, 'add_emp.html', context)
+
+
+@login_required(login_url='home')
+def employee_detail(request, pk):
+    employee = Employee.objects.filter(pk=pk)
+    if employee.exists():
+        context = {'employee': employee.get()}
+        return render(request, 'emp_details.html', context)
+    return redirect('home')
+
+
+@login_required(login_url='home')
+def delete_employee(request, pk):
+    employee = Employee.objects.filter(id=pk)
+    if employee.exists():
+        employee.get().delete()
+        return redirect('home')
+    messages.info(request, "Employee with id: pk does not exists")
+    return render(request, 'home.html')
+
+@login_required(login_url='home')
+def update_employee(request, pk):
+    employee = Employee.objects.filter(id=pk)
+    if employee.exists():
+        form = EmployeeForm(request.POST or None, instance=employee.get())
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+        return render(request, 'update_emp.html', {'form': form})
+    return render(request, 'home.html')
