@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="col-md-12">
+        <h1 class="mt-5 mb-5">Employee Details</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title fs-5">Employee ID {{ employee.id }}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="mb-2 row fs-4">
+                        <label class="col-sm-4 col-form-label">First Name:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" value="{{ employee.first_name }}">
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="mb-2 row fs-4">
+                        <label class="col-sm-4 col-form-label">Last Name:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" value="{{ employee.last_name }}">
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="mb-2 row fs-4">
+                        <label class="col-sm-4 col-form-label">Email:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" value="{{ employee.email }}">
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="mb-2 row fs-4">
+                        <label class="col-sm-4 col-form-label">Title:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" value="{{ employee.title }}">
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="mb-2 row fs-4">
+                        <label class="col-sm-4 col-form-label">Domain:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" value="{{ employee.domain }}">
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="mb-2 row fs-4">
+                        <label class="col-sm-4 col-form-label">Salary:</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" value="{{ employee.salary }}">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-success fs-5">Back</a>
+            </div>
+            <div class="col">
+                <a href="{% url 'update_emp' employee.id %}" class="btn btn-info fs-5">Update</a>
+            </div>
+            <div class="col">
+                <a href="{% url 'delete_emp' employee.id %}" class="btn btn-danger fs-5">Delete</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
