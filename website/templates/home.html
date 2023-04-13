@@ -42,34 +42,42 @@
         </div>
         {% endfor %}
     {% endif %}
-    <h1>Employees...</h1>
+    <a href="{% url 'add_employee' %}" class="btn btn-success mt-5 mb-5 fs-5">Add Employee</a>
     {% if employees %}
-    <table class="table">
-        <thead>
+    <h2>Employees...</h2>
+    <div class="table-responsive">
+    <table class="table table-borderless align-middle">
+        <thead class="table-light">
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Title</th>
-                <th scope="col">Domain</th>
-                <th scope="col">Salary</th>
+                <th scope="col" class="fs-4">ID</th>
+                <th scope="col" class="fs-4">First Name</th>
+                <th scope="col" class="fs-4">Last Name</th>
+                <th scope="col" class="fs-4">Email</th>
+                <th scope="col" class="fs-4">Title</th>
+                <th scope="col" class="fs-4">Domain</th>
+                <th scope="col" class="fs-4">Salary</th>
             </tr>
         </thead>
         <tbody>
 
         {% for employee in employees %}
             <tr>
-                <th scope="row">{{ employee.id }}</th>
-                <td>{{ employee.first_name }}</td>
-                <td>{{ employee.last_name }}</td>
-                <td>{{ employee.title }}</td>
-                <td>{{ employee.domain }}</td>
-                <td>{{ employee.salary }}</td>
+                <th scope="row"><a href="{% url 'emp_detail' employee.id %}" style="text-decoration: none;">{{ employee.id }}</a></th>
+                <td class="fs-4">{{ employee.first_name }}</td>
+                <td class="fs-4">{{ employee.last_name }}</td>
+                <td class="fs-4">{{ employee.email }}</td>
+                <td class="fs-4">{{ employee.title }}</td>
+                <td class="fs-4">{{ employee.domain }}</td>
+                <td class="fs-4">{{ employee.salary }}</td>
+
             </tr>
 
         {% endfor %}
          </tbody>
     </table>
+    </div>
+    {% else %}
+        <h2>No employee</h2>
     {% endif %}
 </div>
 {% endif %}
