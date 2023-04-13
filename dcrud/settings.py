@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'gofar',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': 'till@mysql79&94',
+        'PASSWORD': 'root',
         'PORT': '3306'
     }
 }
