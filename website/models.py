@@ -18,11 +18,3 @@ class Employee(models.Model):
     class Meta:
         db_table = "employees"
 
-    """
-        class DomainEmp(models.TextChoices):
-            HUMAN_RESOURCES = "HR"
-            INFORMATION_TECHNOLOGY = "IT"
-            MARKETING = "MR"
-            ACCOUNTING = "AC"
-    """
-
