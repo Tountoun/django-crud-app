@@ -18,9 +18,17 @@
             {% endif %}
             {{ form.as_p }}
             <br>
-            <button type="submit" class="btn btn-success"
+            <div class="row">
+            <div class="col">
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-danger"
+               style="--bs-btn-padding-y: 10px; --bs-btn-padding-x: 40px; --bs-btn-font-size: 20px;">Cancel</a>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-success"
                     style="--bs-btn-padding-y: 10px; --bs-btn-padding-x: 50px; --bs-btn-font-size: 20px;">Add
-            </button>
+                </button>
+            </div>
+            </div>
         </form>
     </div>
 
