@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-d6-4#ip98d!wd44t4g@n=*%9e&c00bm5=z_g+ntj33k0@-x*@$
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -49,6 +48,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = 'dcrud.urls'
@@ -64,13 +65,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'django_auto_logout.context_processors.auto_logout_client',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'dcrud.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -81,11 +83,10 @@ DATABASES = {
         'NAME': 'gofar',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'till@mysql79&94',
         'PORT': '3306'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -105,7 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -117,7 +117,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -127,3 +126,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTO_LOGOUT = {
+    'IDLE_TIME': timedelta(hours=1),
+    'SESSION_TIME': timedelta(hours=12, minutes=0, seconds=0),
+    'MESSAGE': 'The session has expired. Please login again to continue.',
+    'REDIRECT_TO_LOGIN_IMMEDIATELY': True,
+}

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{{ redirect_to_login_immediately }}
 {% block content %}
 {% if not user.is_authenticated %}
 <div class="col-md-6 offset-md-3">
