@@ -42,7 +42,11 @@
         </div>
         {% endfor %}
     {% endif %}
+    {% if perms.website.can_add_employee %}
     <a href="{% url 'add_employee' %}" class="btn btn-success mt-5 mb-5 fs-5">Add Employee</a>
+    {% else %}
+    <div class="mt-5"></div>
+    {% endif %}
     {% if employees %}
     <h2>Employees...</h2>
     <div class="table-responsive">

@@ -63,12 +63,16 @@
             <div class="col">
                 <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-success fs-5">Back</a>
             </div>
+            {% if perms.website.can_change_employee %}
             <div class="col">
                 <a href="{% url 'update_emp' employee.id %}" class="btn btn-info fs-5">Update</a>
             </div>
+            {% endif %}
+            {% if perms.website.can_delete_employee %}
             <div class="col">
                 <a href="{% url 'delete_emp' employee.id %}" class="btn btn-danger fs-5">Delete</a>
             </div>
+            {% endif %}
         </div>
     </div>
 
