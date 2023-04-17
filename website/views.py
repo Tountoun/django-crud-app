@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import RegistrationForm, EmployeeForm
 from .models import Employee
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 def home(request):
@@ -50,6 +50,7 @@ def register_user(request):
 
 
 @login_required(login_url="home")
+@permission_required('website.can_add_employee', raise_exception=True)
 def add_employee(request):
     form = EmployeeForm()
     if request.method == 'POST':
@@ -74,6 +75,7 @@ def employee_detail(request, pk):
 
 
 @login_required(login_url='home')
+@permission_required('website.can_delete_employee', raise_exception=True)
 def delete_employee(request, pk):
     employee = Employee.objects.filter(id=pk)
     if employee.exists():
@@ -83,6 +85,7 @@ def delete_employee(request, pk):
     return render(request, 'home.html')
 
 @login_required(login_url='home')
+@permission_required('website.can_change_employee', raise_exception=True)
 def update_employee(request, pk):
     employee = Employee.objects.filter(id=pk)
     if employee.exists():
